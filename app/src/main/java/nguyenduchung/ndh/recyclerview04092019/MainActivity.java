@@ -1,13 +1,16 @@
 package nguyenduchung.ndh.recyclerview04092019;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -17,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView mMonAnRecyclerView;
     ArrayList<MonAn> mArrayMonan;
     MonAnAdapter mMonAnAdapter;
+    int mIndext=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +51,47 @@ public class MainActivity extends AppCompatActivity {
         mMonAnRecyclerView.addItemDecoration(new DividerItemDecoration(MainActivity.this, DividerItemDecoration.VERTICAL));
         mMonAnRecyclerView.setLayoutManager(linearLayoutManager);
         mMonAnRecyclerView.setAdapter(mMonAnAdapter);
+
+        mBtnDongy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mBtnDongy.getText().equals("Đồng ý")){
+                    Toast.makeText(MainActivity.this, "Thêm thành công.", Toast.LENGTH_SHORT).show();
+                }
+                else if(mBtnDongy.getText().equals("Cập Nhật")){
+                    MonAn monAn= mArrayMonan.get(mIndext);
+                    monAn.setTen(mEdtten.getText().toString());
+                    monAn.setMota(mEdtMota.getText().toString());
+                    monAn.setGia(Integer.parseInt(mEdtGia.getText().toString()));
+                    mBtnDongy.setText("Đồng ý");
+                    mMonAnAdapter.notifyDataSetChanged();
+                    Toast.makeText(MainActivity.this, "Cập nhật thành công.", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
+        if(((MonAnAdapter)mMonAnRecyclerView.getAdapter()) != null){
+            ((MonAnAdapter)mMonAnRecyclerView.getAdapter()).setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onClick(View v, @NonNull int position) {
+                   MonAn monAn= mArrayMonan.get(position);
+                   mEdtten.setText(monAn.getTen().toString());
+                   mEdtMota.setText(monAn.getMota().toString());
+                   mEdtGia.setText(monAn.getGia().toString());
+                   mIndext=position;
+                   mBtnDongy.setText("Cập Nhật");
+                }
+
+                @Override
+                public void onLongClick(View v, @NonNull int position) {
+                    mArrayMonan.remove(position);
+                    mMonAnAdapter.notifyDataSetChanged();
+                    Toast.makeText(MainActivity.this, "Xóa Thành công!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
 
 
     }
