@@ -62,6 +62,12 @@ public class MonAnAdapter extends RecyclerView.Adapter<MonAnAdapter.MonanViewHol
             txtTen=itemView.findViewById(R.id.textviewTen);
             txtGia=itemView.findViewById(R.id.textviewGia);
             txtMota=itemView.findViewById(R.id.textviewMota);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
         }
     }
 }

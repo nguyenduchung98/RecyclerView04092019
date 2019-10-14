@@ -3,12 +3,102 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="Thêm Món Mới"
+            android:textSize="30sp"
+            android:textColor="#FF1403"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Tên : "
+                android:textSize="25sp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:id="@+id/edittextTen"
+                android:maxLines="1"
+                android:maxLength="50"
+                android:hint="Nhập tên món mới"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Mô tả : "
+                android:textSize="25sp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:id="@+id/edittextMota"
+                android:maxLength="50"
+                android:maxLines="1"
+                android:hint="Nhập mô tả"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Giá : "
+                android:textSize="25sp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"/>
 
+            <EditText
+                android:id="@+id/edittextGia"
+                android:maxLength="6"
+                android:maxLines="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nhập giá"
+                android:inputType="number"
+                android:textSize="20sp" />
+        </LinearLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/buttonHuybo"
+                android:id="@+id/buttonDongy"
+                android:text="Đồng ý"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <Button
+                app:layout_constraintLeft_toRightOf="@id/buttonDongy"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:id="@+id/buttonHuybo"
+                android:text="Hủy bỏ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerviewMoan"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:itemCount="20"
+        tools:itemCount="5"
         tools:listitem="@layout/item_mon_an" />
 </LinearLayout>
