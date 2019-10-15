@@ -56,14 +56,27 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(mBtnDongy.getText().equals("Đồng ý")){
-                    Toast.makeText(MainActivity.this, "Thêm thành công.", Toast.LENGTH_SHORT).show();
+                    if(mEdtten.getText().toString().isEmpty()|| mEdtMota.getText().toString().isEmpty() || mEdtGia.getText().toString().isEmpty() ){
+                        Toast.makeText(MainActivity.this, "Nhập thông tin món ăn.", Toast.LENGTH_SHORT).show();
+                    }else{
+                        MonAn monAn=new MonAn();
+                        monAn.setTen(mEdtten.getText().toString());
+                        monAn.setMota(mEdtMota.getText().toString());
+                        monAn.setGia(Integer.parseInt(mEdtGia.getText().toString()));
+                        monAn.setHinhanh(R.drawable.goicuon);
+                        mArrayMonan.add(monAn);
+                        mMonAnAdapter.notifyDataSetChanged();
+                        setDefaulEdittext();
+                        Toast.makeText(MainActivity.this, "Thêm thành công.", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
                 else if(mBtnDongy.getText().equals("Cập Nhật")){
                     MonAn monAn= mArrayMonan.get(mIndext);
                     monAn.setTen(mEdtten.getText().toString());
                     monAn.setMota(mEdtMota.getText().toString());
                     monAn.setGia(Integer.parseInt(mEdtGia.getText().toString()));
-                    mBtnDongy.setText("Đồng ý");
+                    setDefaulEdittext();
                     mMonAnAdapter.notifyDataSetChanged();
                     Toast.makeText(MainActivity.this, "Cập nhật thành công.", Toast.LENGTH_SHORT).show();
 
@@ -71,6 +84,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        mBtnHuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDefaulEdittext();
+            }
+        });
         if(((MonAnAdapter)mMonAnRecyclerView.getAdapter()) != null){
             ((MonAnAdapter)mMonAnRecyclerView.getAdapter()).setOnItemClickListener(new OnItemClickListener() {
                 @Override
@@ -92,7 +111,14 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
+    }
 
+    private void setDefaulEdittext() {
+        mEdtten.setText("");
+        mEdtMota.setText("");
+        mEdtGia.setText("");
+        mEdtten.clearFocus();
+        mBtnDongy.setText("Đồng ý");
 
     }
 }
